@@ -1,0 +1,8 @@
+.page {
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    font-family: Inter, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <link rel="stylesheet" type="text/css" href="./pages/index.css" />
+  </head>
+
+  <body class="page">
+    <div class="site">
+      <header class="head">
+        <img src="./images/Logo.svg" alt="Логотип Место Россия" class="logo" />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            src="./images/image.jpg"
+            alt="Моя фотокарточка"
+            class="profile__avatar"
+          />
+          <div class="profile__info">
+            <div class="profile__edit">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button
+                type="button"
+                class="profile__edit-button site__link"
+                title="Редактировать данные профиля"
+              ></button>
+            </div>
+            <p class="profile__description">Исследователь океанов</p>
+          </div>
+          <button
+            class="profile__add-button site__link"
+            type="button"
+            title="Добавить карточку"
+          ></button>
+        </section>
+        <section class="elements"></section>
+      </main>
+      <footer class="footer">
+        <p class="footer__text">&copy; 2020 Mesto Russia</p>
+      </footer>
+      <div class="popup popup_type_edit-profile">
+        <div class="popup__window">
+          <button
+            type="button"
+            class="popup__close site__link"
+            title="Закрыть"
+          ></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form name="editForm" class="popup__form" novalidate>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="popup__input popup__input_type_name"
+              title="Как Вас величать?"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span id="name-error" class="popup__error"></span>
+            <input
+              type="text"
+              name="occupation"
+              id="occupation"
+              class="popup__input popup__input_type_occupation"
+              title="Род Вашей деятельности"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span id="occupation-error" class="popup__error"></span>
+            <button type="submit" class="popup__save">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_add-card">
+        <div class="popup__window">
+          <button
+            type="button"
+            class="popup__close site__link"
+            title="Закрыть"
+          ></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form name="addForm" class="popup__form" novalidate>
+            <input
+              type="text"
+              name="nameCard"
+              id="nameCard"
+              class="popup__input popup__input_type_name"
+              title="Введите название места"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span id="nameCard-error" class="popup__error"></span>
+            <input
+              type="url"
+              name="imageLink"
+              id="imageLink"
+              class="popup__input popup__input_type_url"
+              title="Вставьте ссылку на фото"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span id="imageLink-error" class="popup__error"></span>
+            <button type="submit" class="popup__save">Создать</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_view-image">
+        <div class="popup__image-window">
+          <button
+            type="button"
+            class="popup__close site__link"
+            title="Закрыть"
+          ></button>
+          <img class="popup__image" src="#" alt="#" title="" />
+          <h2 class="popup__image-title"></h2>
+        </div>
+      </div>
+      <template id="card">
+        <figure class="element">
+          <img class="element__photo" src="#" alt="#" title="" />
+          <button
+            type="button"
+            class="element__delete site__link"
+            title="Удалить карточку"
+          ></button>
+          <figcaption class="element__caption">
+            <h2 class="element__text"></h2>
+            <button type="button" class="element__like" title="Лайк?"></button>
+          </figcaption>
+        </figure>
+      </template>
+    </div>
+
+    <script src="./components/initial-сards.js"></script>
+    <script src="./pages/index.js"></script>
+    <script src="./components/validate.js"></script>
+  </body>
+</html>

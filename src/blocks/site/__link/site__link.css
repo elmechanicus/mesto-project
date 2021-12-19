@@ -1,0 +1,8 @@
+.site__link {
+    transition: opacity .3s linear;
+}
+
+.site__link:hover {
+    cursor: pointer;
+    opacity: .6;
+}
