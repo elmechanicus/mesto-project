@@ -1,3 +1,5 @@
+import { objectsValidate } from "./constants.js";
+
 //Просигнализируем пользователю о некорректности введённых данных
 function visibleError(
   formElement,
@@ -77,7 +79,7 @@ function setEventListeners(formElement, classesValidate) {
 }
 
 //Очистка формы от данных валидации
-function eraseValidation(popup) {
+export function eraseValidation(popup) {
   const buttonElement = popup.querySelector(
     objectsValidate.submitButtonSelector
   );
