@@ -1,0 +1,17 @@
+.head {
+    display: flex;
+    flex-direction: column;
+    max-width: 880px;
+    width: 100%;
+    margin: 45px auto 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+    /* Точно лого потемнело, а я даже в час ночи и не заметил изменившийся логотип, спасибо*/
+}
+
+@media screen and (max-width:480px) {
+    .head {
+        margin: 28px auto 0;
+        width: 320px;
+    }
+}
