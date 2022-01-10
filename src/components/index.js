@@ -1,3 +1,5 @@
+import "../../src/pages/index.css";
+
 import {
   initialCards,
   addCard,
@@ -13,6 +15,7 @@ import {
   popupViewedImage,
   popupEditProfile,
 } from "./constants.js";
+
 import { createCard } from "./card.js";
 import { openWindow, closeWindow } from "./modal.js";
 import {
