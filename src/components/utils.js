@@ -35,8 +35,7 @@ export function closePopupEscape(evt) {
 export function closePopupOverlayClick(evt) {
   //если в таргете нашлось popup_open, то закрываем окошко
   if (evt.target.className.includes("popup_open")) {
-    const popup = document.querySelector(".popup_open");
-    closeWindow(popup);
+    closeWindow(evt.target);
   }
 }
 
