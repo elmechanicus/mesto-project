@@ -2,52 +2,69 @@ import "../../src/pages/index.css";
 
 import {
   initialCards,
-  addCard,
   elements,
   buttonEditProfile,
   buttonAddCard,
-  buttonClosedEditPopup,
-  buttonClosedAddCard,
-  buttonClosedImage,
   formPopupEdit,
   formPopupCard,
   popupAddCard,
-  popupViewedImage,
   popupEditProfile,
+  nameProfile,
+  occupationProfile,
+  inputNameEdit,
+  inputOccupationEdit,
 } from "./constants.js";
 
 import { createCard } from "./card.js";
 import { openWindow, closeWindow } from "./modal.js";
-import {
-  editWindow,
-  handleCardFormSubmit,
-  handleProfileFormSubmit,
-} from "./utils.js";
+import { editWindow, eraseForm, handleCardFormSubmit } from "./utils.js";
+
+const popups = document.querySelectorAll(".popup"); //найдём все модальные окна
+//Огромный респектище за такой способ!!!
+popups.forEach((popupWindow) => {
+  //пробежимся по всем модалкам
+  popupWindow.addEventListener("click", (evt) => {
+    //подключим к ним клики
+    if (evt.target.classList.contains("popup_open")) {
+      //если кликнули мимо окошка, то закроем его
+      closeWindow(popupWindow);
+    }
+    if (evt.target.classList.contains("popup__close")) {
+      //если кликнули по крестику, то закроем окошко
+      closeWindow(popupWindow);
+    }
+  });
+});
+
+// функция изменения информации в профиле
+function handleProfileFormSubmit() {
+  nameProfile.textContent = inputNameEdit.value; // Запишем ваше имя в профиле
+  occupationProfile.textContent = inputOccupationEdit.value; // а так же запишем чем вы заниметесь
+  closeWindow(popupEditProfile);
+}
 
 //заполняем карточки из массива
 initialCards.forEach((newcard) => {
+  const addCard = {
+    nameCard: "",
+    urlCard: "",
+  };
   addCard.nameCard = newcard.name;
   addCard.urlCard = newcard.link;
   elements.append(createCard(addCard));
 });
 
 // послушаем кнопочку редактирования
-buttonEditProfile.addEventListener("click", editWindow);
+buttonEditProfile.addEventListener("click", () => {
+  eraseForm(popupEditProfile);
+  editWindow();
+});
 
 // послушаем кнопочку добавления карточки
 buttonAddCard.addEventListener("click", () => {
+  eraseForm(popupAddCard);
   openWindow(popupAddCard);
 });
-
-buttonClosedEditPopup.addEventListener("click", () => {
-  closeWindow(popupEditProfile);
-}); // послушаем кнопочку закрытия окошка редактирования профиля
-buttonClosedAddCard.addEventListener("click", () => {
-  closeWindow(popupAddCard);
-}); // послушаем кнопочку закрытия окошка добавления карточки
-buttonClosedImage.addEventListener("click", () => {
-  closeWindow(popupViewedImage);
-}); // послушаем кнопочку закрытия просмотра фото
 
 formPopupEdit.addEventListener("submit", handleProfileFormSubmit); // послушаем форму редактирования профиля
 formPopupCard.addEventListener("submit", handleCardFormSubmit); // послушаем форму добавления карточки

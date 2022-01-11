@@ -35,11 +35,6 @@ export const objectsValidate = {
   errorClass: "popup__error_visible",
 };
 
-export const addCard = {
-  nameCard: "",
-  urlCard: "",
-};
-
 export const buttonEditProfile = document.querySelector(
   ".profile__edit-button"
 ); // кнопка редактирования профиля
@@ -48,9 +43,7 @@ export const buttonAddCard = document.querySelector(".profile__add-button"); // 
 export const popupEditProfile = document.querySelector(
   ".popup_type_edit-profile"
 ); // окошко редактирования профиля
-// const buttonSaveEditPopup = popupEditProfile.querySelector(".popup__save"); //кнопочка Сохранить
-export const buttonClosedEditPopup =
-  popupEditProfile.querySelector(".popup__close"); // кнопка закрытия окна редактирования профиля
+
 export const formPopupEdit = popupEditProfile.querySelector(".popup__form"); // форма ввода для редактирования профиля
 export const inputNameEdit = popupEditProfile.querySelector(
   ".popup__input_type_name"
@@ -60,7 +53,6 @@ export const inputOccupationEdit = popupEditProfile.querySelector(
 ); // поле для ввода рода деятельности
 
 export const popupAddCard = document.querySelector(".popup_type_add-card"); // окошко добавления карточки
-export const buttonClosedAddCard = popupAddCard.querySelector(".popup__close"); // кнопка закрытия окна добавления карточки
 export const formPopupCard = popupAddCard.querySelector(".popup__form"); // форма ввода данных для добавления карточки
 export const inputNameCard = popupAddCard.querySelector(
   ".popup__input_type_name"
@@ -72,8 +64,6 @@ export const inputUrlCard = popupAddCard.querySelector(
 export const popupViewedImage = document.querySelector(
   ".popup_type_view-image"
 ); //окошко показа фото
-export const buttonClosedImage =
-  popupViewedImage.querySelector(".popup__close"); //кнопка закрытия просмотра фото
 
 export const nameProfile = document.querySelector(".profile__name"); // Изменяемое имя в профиле
 export const occupationProfile = document.querySelector(

@@ -6,7 +6,6 @@ import {
   inputOccupationEdit,
   nameProfile,
   occupationProfile,
-  addCard,
   elements,
   inputNameCard,
   inputUrlCard,
@@ -17,8 +16,12 @@ import { eraseValidation } from "./validate.js";
 
 //функция добавления новой карточки
 export function handleCardFormSubmit() {
+  const addCard = {
+    nameCard: "",
+    urlCard: "",
+  };
   addCard.nameCard = inputNameCard.value; //запишем в класс объекта значение строки ввода
-  addCard.urlCard = inputUrlCard.value; //запишем в класс объёкта строку с адресом картинки
+  addCard.urlCard = inputUrlCard.value; //запишем в класс объекта строку с адресом картинки
   elements.prepend(createCard(addCard)); // запихиваем новую карточку на страницу
   closeWindow(popupAddCard); //закрываем окошко
 }
@@ -28,14 +31,6 @@ export function closePopupEscape(evt) {
   if (evt.key === "Escape") {
     const popup = document.querySelector(".popup_open");
     closeWindow(popup);
-  }
-}
-
-//обработаем клик по оверлею
-export function closePopupOverlayClick(evt) {
-  //если в таргете нашлось popup_open, то закрываем окошко
-  if (evt.target.className.includes("popup_open")) {
-    closeWindow(evt.target);
   }
 }
 
@@ -51,11 +46,4 @@ export function editWindow() {
   openWindow(popupEditProfile);
   inputNameEdit.value = nameProfile.textContent; // перенесли имя из документа в форму
   inputOccupationEdit.value = occupationProfile.textContent; // перенесли род деятельности в форму
-}
-
-// функция изменения информации в профиле
-export function handleProfileFormSubmit() {
-  nameProfile.textContent = inputNameEdit.value; // Запишем ваше имя в профиле
-  occupationProfile.textContent = inputOccupationEdit.value; // а так же запишем чем вы заниметесь
-  closeWindow(popupEditProfile);
 }
