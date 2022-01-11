@@ -2,6 +2,8 @@ import { openWindow } from "./modal.js";
 import { popupViewedImage } from "./constants.js";
 
 const cardTemplate = document.querySelector("#card").content; //вытаскиваем контент из темплета
+const popupImageAttribute = popupViewedImage.querySelector(".popup__image"); //аттрибуты картинки
+const popupImageTitle = popupViewedImage.querySelector(".popup__image-title");
 
 //создание карточки
 export function createCard(addCard) {
@@ -37,7 +39,7 @@ function handleDeleteCard(evt) {
 //открываем окошечко просмотра фотографии
 function viewImageWindow(url, title) {
   openWindow(popupViewedImage);
-  popupViewedImage.querySelector(".popup__image").src = url;
-  popupViewedImage.querySelector(".popup__image-title").textContent = title;
-  popupViewedImage.querySelector(".popup__image").alt = title;
+  popupImageAttribute.src = url;
+  popupImageAttribute.alt = title;
+  popupImageTitle.textContent = title;
 }
