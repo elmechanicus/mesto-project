@@ -13,17 +13,21 @@ import {
 } from "./constants.js";
 import { createCard } from "./card.js";
 import { eraseValidation } from "./validate.js";
+import { addCardToServer } from "./api.js";
 
 //функция добавления новой карточки
 export function handleCardFormSubmit() {
-  const addCard = {
-    nameCard: "",
-    urlCard: "",
-  };
-  addCard.nameCard = inputNameCard.value; //запишем в класс объекта значение строки ввода
-  addCard.urlCard = inputUrlCard.value; //запишем в класс объекта строку с адресом картинки
-  elements.prepend(createCard(addCard)); // запихиваем новую карточку на страницу
+  addCardToServer(inputNameCard.value, inputUrlCard.value) //создаём новую карточку на сервере
+    .then(result => { elements.prepend(createCard(result)); })
+    .catch((err) => { console.log(err) });  
   closeWindow(popupAddCard); //закрываем окошко
+}
+
+//заполняем карточки из массива, полученного с сервера
+export function fillCards(serverCards) {
+  serverCards.forEach((newcard) => {
+    elements.append(createCard(newcard));
+  });
 }
 
 //обработаем кнопочку Escape
@@ -47,3 +51,4 @@ export function editWindow() {
   inputNameEdit.value = nameProfile.textContent; // перенесли имя из документа в форму
   inputOccupationEdit.value = occupationProfile.textContent; // перенесли род деятельности в форму
 }
+

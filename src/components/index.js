@@ -1,8 +1,6 @@
 import "../../src/pages/index.css";
 
 import {
-  initialCards,
-  elements,
   buttonEditProfile,
   buttonAddCard,
   formPopupEdit,
@@ -15,12 +13,26 @@ import {
   inputOccupationEdit,
 } from "./constants.js";
 
-import { createCard } from "./card.js";
+//import { createCard } from "./card.js";
 import { openWindow, closeWindow } from "./modal.js";
-import { editWindow, eraseForm, handleCardFormSubmit } from "./utils.js";
+import { editWindow, eraseForm, handleCardFormSubmit, fillCards } from "./utils.js";
+import { initialServerCards, getUser, patchUser } from "./api.js";
+
+initialServerCards() //получим карточки с сервера
+  .then(serverCards => {
+    fillCards(serverCards);
+  })
+  .catch((err) => { console.log(err) });
+
+getUser() //получим от сервера информацию о пользователе
+.then(userInfo => {
+  nameProfile.textContent = userInfo.name;
+  occupationProfile.textContent = userInfo.about;
+  })
+  .catch((err) => { console.log(err) });
 
 const popups = document.querySelectorAll(".popup"); //найдём все модальные окна
-//Огромный респектище за такой способ!!!
+
 popups.forEach((popupWindow) => {
   //пробежимся по всем модалкам
   popupWindow.addEventListener("click", (evt) => {
@@ -40,19 +52,9 @@ popups.forEach((popupWindow) => {
 function handleProfileFormSubmit() {
   nameProfile.textContent = inputNameEdit.value; // Запишем ваше имя в профиле
   occupationProfile.textContent = inputOccupationEdit.value; // а так же запишем чем вы заниметесь
+  patchUser(inputNameEdit.value, inputOccupationEdit.value);//и отправим ваши данные на сервер
   closeWindow(popupEditProfile);
 }
-
-//заполняем карточки из массива
-initialCards.forEach((newcard) => {
-  const addCard = {
-    nameCard: "",
-    urlCard: "",
-  };
-  addCard.nameCard = newcard.name;
-  addCard.urlCard = newcard.link;
-  elements.append(createCard(addCard));
-});
 
 // послушаем кнопочку редактирования
 buttonEditProfile.addEventListener("click", () => {
@@ -68,3 +70,4 @@ buttonAddCard.addEventListener("click", () => {
 
 formPopupEdit.addEventListener("submit", handleProfileFormSubmit); // послушаем форму редактирования профиля
 formPopupCard.addEventListener("submit", handleCardFormSubmit); // послушаем форму добавления карточки
+

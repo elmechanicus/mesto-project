@@ -1,29 +1,10 @@
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+export const settingsAuth = {
+  apiURL: 'https://nomoreparties.co/v1/plus-cohort-5',
+  headers: {
+    authorization: '1a92109e-5904-468d-b1cc-bb517659891e',
+    'Content-Type': 'application/json',
+  }
+};
 
 export const objectsValidate = {
   formSelector: ".popup__form",
@@ -35,9 +16,7 @@ export const objectsValidate = {
   errorClass: "popup__error_visible",
 };
 
-export const buttonEditProfile = document.querySelector(
-  ".profile__edit-button"
-); // кнопка редактирования профиля
+export const buttonEditProfile = document.querySelector(".profile__edit-button"); // кнопка редактирования профиля
 export const buttonAddCard = document.querySelector(".profile__add-button"); // кнопочка добавления карточки
 
 export const popupEditProfile = document.querySelector(
@@ -64,6 +43,9 @@ export const inputUrlCard = popupAddCard.querySelector(
 export const popupViewedImage = document.querySelector(
   ".popup_type_view-image"
 ); //окошко показа фото
+
+export const popupDeleteCard = document.querySelector(".popup_type_delete-card"); //окошко запроса на удаление карточки
+export const buttonConfirmDeteleCard = popupDeleteCard.querySelector(".popup__save"); //кнопка Да
 
 export const nameProfile = document.querySelector(".profile__name"); // Изменяемое имя в профиле
 export const occupationProfile = document.querySelector(
