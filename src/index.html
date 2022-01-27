@@ -16,10 +16,10 @@
           <img src="<%=require('./images/image.jpg')%>" alt="Моя фотокарточка" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__edit">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button type="button" class="profile__edit-button site__link" title="Редактировать данные профиля"></button>
             </div>
-            <p class="profile__description">Исследователь океанов</p>
+            <p class="profile__description"></p>
           </div>
           <button class="profile__add-button site__link" type="button" title="Добавить карточку"></button>
         </section>
@@ -61,17 +61,23 @@
           <h2 class="popup__image-title"></h2>
         </div>
       </div>
+      <div class="popup popup_type_delete-card">
+        <div class="popup__window">
+          <button type="button" class="popup__close site__link" title="Закрыть"></button>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button type="button" class="popup__save">Да</button>
+        </div>
+      </div>
       <template id="card">
         <figure class="element">
           <img class="element__photo" src="#" alt="#" title="">
-          <button
-            type="button"
-            class="element__delete site__link"
-            title="Удалить карточку"
-          ></button>
+          <button type="button" class="element__delete site__link" title="Удалить карточку"></button>
           <figcaption class="element__caption">
             <h2 class="element__text"></h2>
-            <button type="button" class="element__like" title="Лайк?"></button>
+            <div class="element__like-container">
+              <button type="button" class="element__like" title="Лайк?"></button>
+              <p class="element__like-counter"></p>
+            </div>
           </figcaption>
         </figure>
       </template>
