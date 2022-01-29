@@ -50,9 +50,6 @@ export function createCard(addCard) {
         .catch((err) => { console.log(err); });
       evt.target.classList.add("element__like_active");//и закрасим сердечко
     }
-
-    
-
   });
   
   return card;

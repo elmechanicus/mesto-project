@@ -19,7 +19,7 @@ import { addCardToServer } from "./api.js";
 export function handleCardFormSubmit() {
   addCardToServer(inputNameCard.value, inputUrlCard.value) //создаём новую карточку на сервере
     .then(result => { elements.prepend(createCard(result)); })
-    .catch((err) => { console.log(err) });  
+    .catch((err) => { console.log(err) });
   closeWindow(popupAddCard); //закрываем окошко
 }
 
@@ -52,3 +52,6 @@ export function editWindow() {
   inputOccupationEdit.value = occupationProfile.textContent; // перенесли род деятельности в форму
 }
 
+export function setButtonState(button, isSending) {//функция вывода статуса кнопки при отправке данных на сервер
+  button.textContent = isSending ? "Сохранение..." : "Сохранить";
+}

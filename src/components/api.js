@@ -7,6 +7,7 @@ export const initialServerCards = () => {//вытаскиваем карточк
     .then(res => checkResult(res));
 }
 
+
 export const getUser = () => {//получаем данные о профиле пользователя
   return fetch(`${settingsAuth.apiURL}/users/me`, {
     headers: settingsAuth.headers
@@ -23,6 +24,7 @@ export const patchUser = (userName, aboutUser) => {//отсылаем отред
       about: aboutUser
     })
   })
+  .then(res => checkResult(res));
 }
 
 export const addCardToServer = (nameCard, urlCard) => {//создаём новую карточку на сервере
@@ -64,6 +66,17 @@ export const resetLikeInCard = (cardId) => {//уберём лайк из кар�
     headers: settingsAuth.headers
   })
   .then(res => checkResult(res));
+}
+
+export const patchNewAvatar = (newAvatar) => {
+  return fetch(`${settingsAuth.apiURL}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: settingsAuth.headers,
+    body: JSON.stringify({
+      avatar: newAvatar
+    })
+  })
+    .then(res => checkResult(res));
 }
 
 

@@ -18,38 +18,29 @@ export const objectsValidate = {
 
 export const buttonEditProfile = document.querySelector(".profile__edit-button"); // кнопка редактирования профиля
 export const buttonAddCard = document.querySelector(".profile__add-button"); // кнопочка добавления карточки
+export const buttonNewAvatar = document.querySelector(".profile__new-avatar");// кнопка обновления аватарки
 
-export const popupEditProfile = document.querySelector(
-  ".popup_type_edit-profile"
-); // окошко редактирования профиля
-
+export const popupEditProfile = document.querySelector(".popup_type_edit-profile"); // окошко редактирования профиля
 export const formPopupEdit = popupEditProfile.querySelector(".popup__form"); // форма ввода для редактирования профиля
-export const inputNameEdit = popupEditProfile.querySelector(
-  ".popup__input_type_name"
-); //поле для ввода имени профиля
-export const inputOccupationEdit = popupEditProfile.querySelector(
-  ".popup__input_type_occupation"
-); // поле для ввода рода деятельности
+export const inputNameEdit = popupEditProfile.querySelector(".popup__input_type_name"); //поле для ввода имени профиля
+export const inputOccupationEdit = popupEditProfile.querySelector(".popup__input_type_occupation"); // поле для ввода рода деятельности
 
 export const popupAddCard = document.querySelector(".popup_type_add-card"); // окошко добавления карточки
 export const formPopupCard = popupAddCard.querySelector(".popup__form"); // форма ввода данных для добавления карточки
-export const inputNameCard = popupAddCard.querySelector(
-  ".popup__input_type_name"
-); // поле для ввода названия карточки
-export const inputUrlCard = popupAddCard.querySelector(
-  ".popup__input_type_url"
-); //поле для ввода ссылки на картинку
+export const inputNameCard = popupAddCard.querySelector(".popup__input_type_name"); // поле для ввода названия карточки
+export const inputUrlCard = popupAddCard.querySelector(".popup__input_type_url"); //поле для ввода ссылки на картинку
 
-export const popupViewedImage = document.querySelector(
-  ".popup_type_view-image"
-); //окошко показа фото
+export const popupViewedImage = document.querySelector(".popup_type_view-image"); //окошко показа фото
+
+export const popupNewAvatar = document.querySelector(".popup_type_new-avatar"); //окно обновления аватарки
+export const formNewAvatar = popupNewAvatar.querySelector(".popup__form"); //форма обновление аватарки
+export const inputNewAvatar = popupNewAvatar.querySelector(".popup__input_type_url"); //поле ввода ссылки на изображение аватара
+export const avatarProfile = document.querySelector(".profile__avatar"); //аватарка
 
 export const popupDeleteCard = document.querySelector(".popup_type_delete-card"); //окошко запроса на удаление карточки
 export const buttonConfirmDeteleCard = popupDeleteCard.querySelector(".popup__save"); //кнопка Да
 
 export const nameProfile = document.querySelector(".profile__name"); // Изменяемое имя в профиле
-export const occupationProfile = document.querySelector(
-  ".profile__description"
-); // изменяемый род деятельности
+export const occupationProfile = document.querySelector(".profile__description"); // изменяемый род деятельности
 
 export const elements = document.querySelector(".elements"); // секция для карточек
