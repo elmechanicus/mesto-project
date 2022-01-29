@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html>w
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
   </head>
-
   <body class="page">
     <div class="site">
       <header class="head">
@@ -13,7 +12,10 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img src="<%=require('./images/image.jpg')%>" alt="Моя фотокарточка" class="profile__avatar">
+          <div class="profile__avatar-container">
+            <img src="#" alt="Моя аватарка" class="profile__avatar">
+            <button type="button" class="profile__new-avatar" title="Сменить аватарку"></button>
+          </div>
           <div class="profile__info">
             <div class="profile__edit">
               <h1 class="profile__name"></h1>
@@ -66,6 +68,17 @@
           <button type="button" class="popup__close site__link" title="Закрыть"></button>
           <h2 class="popup__title">Вы уверены?</h2>
           <button type="button" class="popup__save">Да</button>
+        </div>
+      </div>
+      <div class="popup popup_type_new-avatar">
+        <div class="popup__window">
+          <button type="button" class="popup__close site__link" title="Закрыть"></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form name="newAvatar" class="popup__form" novalidate>
+            <input type="url" name="avatarLink" id="avatarLink" class="popup__input popup__input_type_url" title="Вставьте ссылку на аватар" placeholder="Ссылка на аватар" required>
+            <span id="avatarLink-error" class="popup__error"></span>
+            <button type="submit" class="popup__save">Сохранить</button>
+          </form>
         </div>
       </div>
       <template id="card">

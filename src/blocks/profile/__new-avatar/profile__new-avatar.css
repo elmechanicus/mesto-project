@@ -1,0 +1,12 @@
+.profile__new-avatar {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: transparent;
+  background-image: url("../../../images/pensil.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
