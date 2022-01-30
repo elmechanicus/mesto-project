@@ -25,24 +25,36 @@ import {
 import { createCard } from "./card.js";
 import { openWindow, closeWindow } from "./modal.js";
 import { eraseForm, setButtonState } from "./utils.js";
-import { initialServerCards, getUser, patchUser, patchNewAvatar, addCardToServer } from "./api.js";
+import { getInitialServerCards, getUserProfile, patchUser, patchNewAvatar, addCardToServer } from "./api.js";
 
 const classesValidate = objectsValidate;
+let userId;
 
-getUser() //получим от сервера информацию о пользователе
-  .then(userInfo => {
+Promise.all([getUserProfile(), getInitialServerCards()])//получим от сервера информацию о пользователе и карточках
+  .then(([userInfo, serverCards]) => {
     nameProfile.textContent = userInfo.name;
     occupationProfile.textContent = userInfo.about;
     avatarProfile.src = userInfo.avatar;
-  })
-  .catch((err) => { console.log(err); });
-
-
-initialServerCards() //получим карточки с сервера
-  .then(serverCards => {
+    userId = userInfo._id;
     fillCards(serverCards);
   })
   .catch((err) => { console.log(err) });
+
+// getUserProfile() //получим от сервера информацию о пользователе
+//   .then(userInfo => {
+//     nameProfile.textContent = userInfo.name;
+//     occupationProfile.textContent = userInfo.about;
+//     avatarProfile.src = userInfo.avatar;
+//     userId = userInfo._id;
+//   })
+//   .catch((err) => { console.log(err); });
+
+
+// getInitialServerCards() //получим карточки с сервера
+//   .then(serverCards => {
+//     fillCards(serverCards);
+//   })
+//   .catch((err) => { console.log(err) });
 
 
 const popups = document.querySelectorAll(".popup"); //найдём все модальные окна
@@ -72,7 +84,7 @@ function openProfileWindow() {
 //заполняем карточки из массива, полученного с сервера
 function fillCards(serverCards) {
   serverCards.forEach((newcard) => {
-    elements.append(createCard(newcard));
+    elements.append(createCard(newcard, userId));
   });
 }
 
@@ -80,7 +92,7 @@ function fillCards(serverCards) {
 function handleCardFormSubmit() {
   addCardToServer(inputNameCard.value, inputUrlCard.value) //создаём новую карточку на сервере
     .then(result => {
-      elements.prepend(createCard(result));//вставляем карточку
+      elements.prepend(createCard(result, userId));//вставляем карточку
       closeWindow(popupAddCard); //закрываем окошко
     })
     .catch((err) => { console.log(err) });
@@ -89,33 +101,39 @@ function handleCardFormSubmit() {
 
 // функция изменения информации в профиле
 function handleProfileFormSubmit() {
-  nameProfile.textContent = inputNameEdit.value; // Запишем ваше имя в профиле
-  occupationProfile.textContent = inputOccupationEdit.value; // а так же запишем чем вы заниметесь
   const formButton = formPopupEdit.querySelector(".popup__save");//найдём кнопочку в этой форме
   formButton.setAttribute("disabled", true);//глушим её на время передачи данных на сервер
   setButtonState(formButton, true);
   patchUser(inputNameEdit.value, inputOccupationEdit.value)//и отправляем ваши данные на сервер
+    .then(() => {
+      nameProfile.textContent = inputNameEdit.value;// Запишем ваше имя в профиле
+      occupationProfile.textContent = inputOccupationEdit.value;// а так же запишем чем вы заниметесь
+      closeWindow(popupEditProfile);
+    })
     .catch(err => { console.log(err); })
     .finally(() => {
       formButton.removeAttribute("disabled");
       setButtonState(formButton, false);
     });
-  closeWindow(popupEditProfile);
+  
 };
 
 //функция изменения аватара пользователя
 function handleAvatarFormSubmit() {
-  avatarProfile.src = inputNewAvatar.value//выведем на страницу
   const formButton = formNewAvatar.querySelector(".popup__save");
   formButton.setAttribute("disabled", true);//глушим кнопку на время передачи данных
   setButtonState(formButton, true);
   patchNewAvatar(inputNewAvatar.value)//обновим ссылку на аватар на сервере
+    .then(() => {
+      avatarProfile.src = inputNewAvatar.value;//выведем на страницу
+      closeWindow(popupNewAvatar);
+    })
     .catch((err) => { console.log(err); })
     .finally(() => {
       formButton.removeAttribute("disabled");
       setButtonState(formButton, false);
     });
-  closeWindow(popupNewAvatar);
+  
 };
 
 // послушаем кнопочку редактирования профиля

@@ -1,5 +1,5 @@
 import { closeWindow, openWindow } from "./modal.js";
-import { popupViewedImage, nameProfile, popupDeleteCard, buttonConfirmDeteleCard } from "./constants.js";
+import { popupViewedImage, popupDeleteCard, buttonConfirmDeteleCard } from "./constants.js";
 import { deleteCardFromServer, setLikeInCard, resetLikeInCard } from "./api.js";
 
 const cardTemplate = document.querySelector("#card").content; //вытаскиваем контент из темплета
@@ -7,19 +7,19 @@ const popupImageAttribute = popupViewedImage.querySelector(".popup__image"); //�
 const popupImageTitle = popupViewedImage.querySelector(".popup__image-title");
 
 //создание карточки
-export function createCard(addCard) {
+export function createCard(objectCard, userId) {
   const card = cardTemplate.querySelector(".element").cloneNode(true); //клонируем темплейт
   const cardImage = card.querySelector(".element__photo"); //наше фото
   const cardTitle = card.querySelector(".element__text"); //наша подпись к фото
   const cardLikeCounter = card.querySelector(".element__like-counter"); //количество лайков
-  cardTitle.textContent = addCard.name; //заполняем текстом карточку
-  cardImage.alt = addCard.name; //подпись к картинке в карточке
-  cardImage.src = addCard.link; //добавляем картинку в карточку
-  cardLikeCounter.textContent = addCard.likes.length;//добавляем количество лайков в карточку
+  cardTitle.textContent = objectCard.name; //заполняем текстом карточку
+  cardImage.alt = objectCard.name; //подпись к картинке в карточке
+  cardImage.src = objectCard.link; //добавляем картинку в карточку
+  cardLikeCounter.textContent = objectCard.likes.length;//добавляем количество лайков в карточку
   
-  for (let i = 0; i < addCard.likes.length; i++) {//закрасим лайки, которые уже лайкнул
-    if (addCard.likes[i].name === addCard.owner.name) {
-      card.querySelector(".element__like").classList.add("element__like_active");
+  for (let i = 0; i < objectCard.likes.length; i++) {//закрасим лайки, которые уже лайкнул
+    if (objectCard.likes[i]._id === userId) {
+      card.querySelector(".element__like").classList.add("element__like_active")
   }
   };
   
@@ -28,27 +28,33 @@ export function createCard(addCard) {
     viewImageWindow(cardImage.src, cardTitle.textContent)
   ); // засунем в показ фотки
 
-  if (addCard.owner.name !== nameProfile.textContent) {//если карточка не наша
+  if (objectCard.owner._id !== userId) {//если карточка не наша
     card.querySelector(".element__delete").classList.add("element__delete_hidden");//спрячем кнопку удаления карточки
   } else {
     card.querySelector(".element__delete").addEventListener("click", (evt) => {// навесим событие на значок корзины
         openWindow(popupDeleteCard);
-        handleDeleteCard(evt.target, addCard);  
+      handleDeleteCard(evt.target, objectCard);
+      
       });
   }
 
   //навесим событие лайкнуть карточку
   card.querySelector(".element__like").addEventListener("click", (evt) => {
     if (evt.target.classList.contains("element__like_active")) {//если сердечко закрашено
-      resetLikeInCard(addCard._id)//удалим лайк
-        .then(result => { cardLikeCounter.textContent = result.likes.length; })//изменим счётчик
+      resetLikeInCard(objectCard._id)//удалим лайк
+        .then(result => {
+          cardLikeCounter.textContent = result.likes.length;
+          evt.target.classList.remove("element__like_active"); //и сделаем сердечко неактивным
+        })//изменим счётчик
         .catch((err) => { console.log(err); });
-      evt.target.classList.remove("element__like_active"); //и сделаем сердечко неактивным
+      
     } else {
-      setLikeInCard(addCard._id)//установим лайк
-        .then(result => { cardLikeCounter.textContent = result.likes.length; })//изменим счётчик
+      setLikeInCard(objectCard._id)//установим лайк
+        .then(result => {
+          cardLikeCounter.textContent = result.likes.length;
+          evt.target.classList.add("element__like_active");//и закрасим сердечко
+        })//изменим счётчик
         .catch((err) => { console.log(err); });
-      evt.target.classList.add("element__like_active");//и закрасим сердечко
     }
   });
   
@@ -58,9 +64,12 @@ export function createCard(addCard) {
 function handleDeleteCard(deleteCard, addCard) {
   buttonConfirmDeteleCard.addEventListener("click", () => {//послушаем кнопочку "Да"
     deleteCardFromServer(addCard._id)//если нажали - удаляем карточку с сервера
-      .then(() => { deleteCard.closest(".element").remove(); })//и удаляем со страницы
+      .then(() => {
+        deleteCard.closest(".element").remove();
+        closeWindow(popupDeleteCard);
+      })//и удаляем со страницы
       .catch((err) => { console.log(err) });
-    closeWindow(popupDeleteCard);
+    
   });
       
 }

@@ -1,6 +1,6 @@
 import {settingsAuth} from "./constants.js";
 
-export const initialServerCards = () => {//вытаскиваем карточки из сервера
+export const getInitialServerCards = () => {//вытаскиваем карточки из сервера
   return fetch(`${settingsAuth.apiURL}/cards`, {
     headers: settingsAuth.headers
   })
@@ -8,7 +8,7 @@ export const initialServerCards = () => {//вытаскиваем карточк
 }
 
 
-export const getUser = () => {//получаем данные о профиле пользователя
+export const getUserProfile = () => {//получаем данные о профиле пользователя
   return fetch(`${settingsAuth.apiURL}/users/me`, {
     headers: settingsAuth.headers
   })
