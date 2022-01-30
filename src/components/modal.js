@@ -1,5 +1,3 @@
-import { closePopupEscape } from "./utils.js";
-
 //Открываем модальное окошко
 export function openWindow(popup) {
   popup.classList.add("popup_open");
@@ -10,4 +8,12 @@ export function openWindow(popup) {
 export function closeWindow(popup) {
   document.removeEventListener("keydown", closePopupEscape); //удаляем прослушку на клавиши
   popup.classList.remove("popup_open"); //закрываемся
+}
+
+//обработаем кнопочку Escape
+function closePopupEscape(evt) {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_open");
+    closeWindow(popup);
+  }
 }

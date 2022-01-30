@@ -2,6 +2,7 @@ import "../../src/pages/index.css";
 
 import {
   objectsValidate,
+  elements,
   buttonEditProfile,
   buttonAddCard,
   buttonNewAvatar,
@@ -13,16 +14,18 @@ import {
   nameProfile,
   occupationProfile,
   inputNameEdit,
+  inputNameCard,
+  inputUrlCard,
   inputOccupationEdit,
   popupNewAvatar,
   avatarProfile,
   inputNewAvatar,
 } from "./constants.js";
 
-//import { createCard } from "./card.js";
+import { createCard } from "./card.js";
 import { openWindow, closeWindow } from "./modal.js";
-import { editWindow, eraseForm, handleCardFormSubmit, fillCards, setButtonState } from "./utils.js";
-import { initialServerCards, getUser, patchUser, patchNewAvatar } from "./api.js";
+import { eraseForm, setButtonState } from "./utils.js";
+import { initialServerCards, getUser, patchUser, patchNewAvatar, addCardToServer } from "./api.js";
 
 const classesValidate = objectsValidate;
 
@@ -59,6 +62,31 @@ popups.forEach((popupWindow) => {
   });
 });
 
+// открываем окошечко для редактирования данных профиля
+function openProfileWindow() {
+  openWindow(popupEditProfile);
+  inputNameEdit.value = nameProfile.textContent; // перенесли имя из документа в форму
+  inputOccupationEdit.value = occupationProfile.textContent; // перенесли род деятельности в форму
+}
+
+//заполняем карточки из массива, полученного с сервера
+function fillCards(serverCards) {
+  serverCards.forEach((newcard) => {
+    elements.append(createCard(newcard));
+  });
+}
+
+//функция добавления новой карточки
+function handleCardFormSubmit() {
+  addCardToServer(inputNameCard.value, inputUrlCard.value) //создаём новую карточку на сервере
+    .then(result => {
+      elements.prepend(createCard(result));//вставляем карточку
+      closeWindow(popupAddCard); //закрываем окошко
+    })
+    .catch((err) => { console.log(err) });
+  
+}
+
 // функция изменения информации в профиле
 function handleProfileFormSubmit() {
   nameProfile.textContent = inputNameEdit.value; // Запишем ваше имя в профиле
@@ -93,7 +121,7 @@ function handleAvatarFormSubmit() {
 // послушаем кнопочку редактирования профиля
 buttonEditProfile.addEventListener("click", () => {
   eraseForm(popupEditProfile, classesValidate);
-  editWindow();
+  openProfileWindow();
 });
 
 // послушаем кнопочку добавления карточки
