@@ -77,22 +77,6 @@ export function eraseValidation(popup, classesValidate) {
   );
   inputList.forEach((input) => hideError(popup, input, classesValidate));
 
-
-  // const inputStrings = Array.from(//массив полей для ввода
-  //   popup.querySelectorAll(classesValidate.inputSelector)
-  // );
-  // inputStrings.forEach((input) => {//убираем красную подсветку строки ввода
-  //   input.classList.remove(classesValidate.inputErrorClass); 
-  // });
-
-  // const errorReset = Array.from(//массив полей с ошибками
-  //   popup.querySelectorAll(classesValidate.errorField)
-  // );
-  // errorReset.forEach((errorElement) => {
-  //   errorElement.textContent = ""; //очищаем поля с ошибкой
-  //   errorElement.classList.remove(classesValidate.errorClass); //скрываем сообщения об ошибке
-  // });
-
   buttonElement.classList.add(classesValidate.inactiveButtonClass); //делаем кнопку неактивной
   buttonElement.setAttribute("disabled", true);
 }
