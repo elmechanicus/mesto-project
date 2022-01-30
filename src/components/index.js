@@ -1,6 +1,7 @@
 import "../../src/pages/index.css";
 
 import {
+  objectsValidate,
   buttonEditProfile,
   buttonAddCard,
   buttonNewAvatar,
@@ -23,6 +24,7 @@ import { openWindow, closeWindow } from "./modal.js";
 import { editWindow, eraseForm, handleCardFormSubmit, fillCards, setButtonState } from "./utils.js";
 import { initialServerCards, getUser, patchUser, patchNewAvatar } from "./api.js";
 
+const classesValidate = objectsValidate;
 
 getUser() //получим от сервера информацию о пользователе
   .then(userInfo => {
@@ -90,19 +92,19 @@ function handleAvatarFormSubmit() {
 
 // послушаем кнопочку редактирования профиля
 buttonEditProfile.addEventListener("click", () => {
-  eraseForm(popupEditProfile);
+  eraseForm(popupEditProfile, classesValidate);
   editWindow();
 });
 
 // послушаем кнопочку добавления карточки
 buttonAddCard.addEventListener("click", () => {
-  eraseForm(popupAddCard);
+  eraseForm(popupAddCard, classesValidate);
   openWindow(popupAddCard);
 });
 
 //послушаем кнопку обновления аватарки
 buttonNewAvatar.addEventListener("click", () => {
-  eraseForm(popupNewAvatar);
+  eraseForm(popupNewAvatar, classesValidate);
   openWindow(popupNewAvatar);
 });
 

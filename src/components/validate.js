@@ -1,12 +1,7 @@
 import { objectsValidate } from "./constants.js";
 
 //Просигнализируем пользователю о некорректности введённых данных
-function visibleError(
-  formElement,
-  inputElement,
-  errorMessage,
-  classesValidate
-) {
+function showError(formElement, inputElement, errorMessage, classesValidate) {
   const errorUnit = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(classesValidate.inputErrorClass);
   errorUnit.textContent = errorMessage;
@@ -14,7 +9,7 @@ function visibleError(
 }
 
 //Уберём все сигнализаторы ошибки
-function unvisibleError(formElement, inputElement, classesValidate) {
+function hideError(formElement, inputElement, classesValidate) {
   const errorUnit = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(classesValidate.inputErrorClass);
   errorUnit.textContent = "";
@@ -26,14 +21,9 @@ function controlInputsValidity(formElement, inputElement, classesValidate) {
   //Проверяем поле ввода на валидность
   if (!inputElement.validity.valid) {
     //Если поле с ошибкой
-    visibleError(
-      formElement,
-      inputElement,
-      inputElement.validationMessage,
-      classesValidate
-    ); //то покажем, что юзер ошибся при вводе
+    showError(formElement, inputElement, inputElement.validationMessage, classesValidate); //то покажем, что юзер ошибся при вводе
   } else {
-    unvisibleError(formElement, inputElement, classesValidate); // иначе спрячем сообщение об ошибке
+    hideError(formElement, inputElement, classesValidate); // иначе спрячем сообщение об ошибке
   }
 }
 
@@ -44,7 +34,7 @@ function hasInvalidInput(inputsCatlogue) {
 }
 
 // Активация/дезактивация кнопки отправки формы
-function tumblerButtonStatus(inputsCatlogue, buttonElement, classesValidate) {
+function switchButtonStatus(inputsCatlogue, buttonElement, classesValidate) {
   if (hasInvalidInput(inputsCatlogue)) {
     //если в полях ввода некорректная инфа
     buttonElement.classList.add(classesValidate.inactiveButtonClass); //то делаем кнопку неактивной
@@ -67,36 +57,43 @@ function setEventListeners(formElement, classesValidate) {
   );
   //Вызываем функцию переключения состояния кнопки
 
-  tumblerButtonStatus(inputsCatlogue, buttonElement, classesValidate);
+  switchButtonStatus(inputsCatlogue, buttonElement, classesValidate);
 
   //Пробежимся по массиву полей ввода, и навесим на каждое поле ввода слушателя
   inputsCatlogue.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       controlInputsValidity(formElement, inputElement, classesValidate); //проконтролируем поле на котором произошло событие
-      tumblerButtonStatus(inputsCatlogue, buttonElement, classesValidate); //включим или выключим кнопочку
+      switchButtonStatus(inputsCatlogue, buttonElement, classesValidate); //включим или выключим кнопочку
     });
   });
 }
 
 //Очистка формы от данных валидации
-export function eraseValidation(popup) {
-  const buttonElement = popup.querySelector(
-    objectsValidate.submitButtonSelector
+export function eraseValidation(popup, classesValidate) {
+  const buttonElement = popup.querySelector(classesValidate.submitButtonSelector);
+
+  const inputList = Array.from(
+    popup.querySelectorAll(classesValidate.inputSelector)
   );
-  const inputStrings = Array.from(
-    popup.querySelectorAll(objectsValidate.inputSelector)
-  ); //массив полей для ввода
-  inputStrings.forEach((input) => {
-    input.classList.remove(objectsValidate.inputErrorClass); //убираем красную подсветку строки ввода
-  });
-  const errorReset = Array.from(
-    popup.querySelectorAll(objectsValidate.errorField)
-  ); //массив полей с ошибками
-  errorReset.forEach((errorElement) => {
-    errorElement.textContent = ""; //очищаем поля с ошибкой
-    errorElement.classList.remove(objectsValidate.errorClass); //скрываем сообщения об ошибке
-  });
-  buttonElement.classList.add(objectsValidate.inactiveButtonClass); //делаем кнопку неактивной
+  inputList.forEach((input) => hideError(popup, input, classesValidate));
+
+
+  // const inputStrings = Array.from(//массив полей для ввода
+  //   popup.querySelectorAll(classesValidate.inputSelector)
+  // );
+  // inputStrings.forEach((input) => {//убираем красную подсветку строки ввода
+  //   input.classList.remove(classesValidate.inputErrorClass); 
+  // });
+
+  // const errorReset = Array.from(//массив полей с ошибками
+  //   popup.querySelectorAll(classesValidate.errorField)
+  // );
+  // errorReset.forEach((errorElement) => {
+  //   errorElement.textContent = ""; //очищаем поля с ошибкой
+  //   errorElement.classList.remove(classesValidate.errorClass); //скрываем сообщения об ошибке
+  // });
+
+  buttonElement.classList.add(classesValidate.inactiveButtonClass); //делаем кнопку неактивной
   buttonElement.setAttribute("disabled", true);
 }
 

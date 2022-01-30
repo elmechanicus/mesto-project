@@ -39,9 +39,9 @@ export function closePopupEscape(evt) {
 }
 
 //Очистка форм
-export function eraseForm(popup) {
-  const form = popup.querySelector(objectsValidate.formSelector);
-  eraseValidation(popup);
+export function eraseForm(popup, classesValidate) {
+  const form = popup.querySelector(classesValidate.formSelector);
+  eraseValidation(popup, classesValidate);
   form.reset(); // очищаем форму
 }
 
