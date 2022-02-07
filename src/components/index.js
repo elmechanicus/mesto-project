@@ -40,23 +40,6 @@ Promise.all([getUserProfile(), getInitialServerCards()])//получим от с
   })
   .catch((err) => { console.log(err) });
 
-// getUserProfile() //получим от сервера информацию о пользователе
-//   .then(userInfo => {
-//     nameProfile.textContent = userInfo.name;
-//     occupationProfile.textContent = userInfo.about;
-//     avatarProfile.src = userInfo.avatar;
-//     userId = userInfo._id;
-//   })
-//   .catch((err) => { console.log(err); });
-
-
-// getInitialServerCards() //получим карточки с сервера
-//   .then(serverCards => {
-//     fillCards(serverCards);
-//   })
-//   .catch((err) => { console.log(err) });
-
-
 const popups = document.querySelectorAll(".popup"); //найдём все модальные окна
 
 popups.forEach((popupWindow) => {
